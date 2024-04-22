@@ -7,11 +7,15 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import Input from "../components/Input";
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordInputType, setPasswordInputType] = useState("password");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   function changePasswordInputType() {
     if (passwordInputType === "text") {
@@ -23,6 +27,12 @@ function Login() {
 
   function handlePasswordChange(event) {
     setPassword(event.target.value);
+    if (event.target.value && password.length > 0) {
+      setIsFormValid(true);
+    }
+    else {
+      setIsFormValid(false);
+    }
   }
 
   return (
@@ -45,7 +55,7 @@ function Login() {
           </div>
           {/* Button div */}
           <div className="w-full">
-            <Button title="Login" />
+            <Button title="Login" disabled={!isFormValid} onClick={() => navigate('/dashboard')} />
           </div>
         </form>
       </Card>

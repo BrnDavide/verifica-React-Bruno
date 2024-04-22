@@ -15,6 +15,7 @@ const options = [
   { value: "BASSA", label: "Bassa" }
 ];
 
+
 function Dashboard() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({
@@ -132,7 +133,8 @@ function Dashboard() {
 
   return (
     <>
-      <Header title="Dashbaord" icon={<Login />} to="/login" />
+      <Header title="Dashboard" icon={<Login />} to="/login" />
+      <h2 className="size-2">{JSON.parse(localStorage.getItem('user')).email}</h2>
       <Card>
         <div className="w-full flex justify-between items-center">
           <div>

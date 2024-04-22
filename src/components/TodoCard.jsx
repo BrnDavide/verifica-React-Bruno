@@ -8,6 +8,7 @@ function TodoCard(props) {
   const slicedTitle = titolo.slice(0, 20) + (titolo.length > 10 ? " ..." : "");
   return (
     <Card>
+      <h2>Welcome:{}</h2>
       <div className="w-full flex justify-between items-center">
         <div className="flex items-center">
           <Checkbox onChange={onChange} checked={checked} />
