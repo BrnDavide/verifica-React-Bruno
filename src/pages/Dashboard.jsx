@@ -1,5 +1,6 @@
 import { CiLogin as Login } from "react-icons/ci";
 import { useState } from "react";
+import { useEffect } from "react";
 import Select from "react-select";
 import { v4 as uuid } from "uuid";
 
@@ -8,6 +9,7 @@ import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TodoCard from "../components/TodoCard";
+import Loading from "../components/Loading";
 
 const options = [
   { value: "ALTA", label: "Alta" },
@@ -25,8 +27,31 @@ function Dashboard() {
     priorita: "",
     completato: false
   });
+
   const [disabled, setDisabled] = useState(true);
   const [buttonTittle, setButtonTittle] = useState("Submit");
+  const [loading, setLoading] = useState(true);
+
+
+  function callback(){
+    setTimeout(()=>{
+    async function fetchData(){
+      const api= "https://mocki.io/v1/8caaea5a-62c5-4e30-b9d3-0aae11e2a443";
+      const response = await fetch(api);
+      const data = await response.json();
+      setTodos(data);
+      setLoading(false);
+    }
+    fetchData();
+
+    
+  }, 3000);
+}
+
+  useEffect(callback, []);
+
+  const api= "https://mocki.io/v1/8caaea5a-62c5-4e30-b9d3-0aae11e2a443";
+
 
   const formController = todo => {
     if (todo.titolo !== "" && todo.dataDiScadenza !== "" && todo.priorita !== "") {
@@ -159,7 +184,9 @@ function Dashboard() {
           <Button title={buttonTittle} onClick={onClick} disabled={disabled} />
         </div>
       </div>
-      {todosTitles}
+      {loading ? <Loading/>
+      : todosTitles
+      }
     </>
   );
 }
